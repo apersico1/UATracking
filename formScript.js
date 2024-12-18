@@ -1,35 +1,48 @@
-let barcodeCount = 1;
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Automatically set the current date and time
+    const dateTimeField = document.getElementById('dateTime');
+    const now = new Date();
+    dateTimeField.value = now.toISOString().slice(0, 16);
 
-function addBarcodeField() {
-    if (barcodeCount < 10) {
-        barcodeCount++;
-        const additionalBarcodes = document.getElementById('additionalBarcodes');
-        const newBarcodeField = document.createElement('div');
-        newBarcodeField.innerHTML = `
-            <label for="barcode${barcodeCount}">Barcode ${barcodeCount}:</label>
-            <input type="text" id="barcode${barcodeCount}" name="barcode${barcodeCount}"><br><br>
-        `;
-        additionalBarcodes.appendChild(newBarcodeField);
+    // Handle number of items input to generate barcode fields
+    const numberOfItemsField = document.getElementById('numberOfItems');
+    const barcodeFieldsContainer = document.getElementById('barcodeFields');
+
+    numberOfItemsField.addEventListener('input', () => {
+        const numberOfItems = parseInt(numberOfItemsField.value);
+        barcodeFieldsContainer.innerHTML = ''; // Clear existing fields
+
+        for (let i = 1; i <= numberOfItems; i++) {
+            const barcodeField = document.createElement('div');
+            barcodeField.innerHTML = `
+                <label for="barcode${i}">Barcode ${i}:</label>
+                <input type="text" id="barcode${i}" name="barcode${i}" ${i === 1 ? 'required' : ''}><br><br>
+            `;
+            barcodeFieldsContainer.appendChild(barcodeField);
+        }
+    });
+
+    // Function to get the address for the selected library
+    function getAddressForLibrary(library) {
+        const addresses = {
+            'Library A': '123 Library St, City, Country',
+            'Library B': '456 Book Rd, City, Country',
+            // Add more libraries and their addresses here
+        };
+        return addresses[library] || 'Unknown Address';
     }
-}
 
-document.getElementById('dataEntryForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const destinationLibrary = formData.get('destinationLibrary');
-    const address = getAddressForLibrary(destinationLibrary);
-    generateAddressLabel(address);
+    // Function to generate an address label
+    function generateAddressLabel(address) {
+        alert(`Address Label:\n${address}`);
+    }
+
+    // Handle form submission
+    document.getElementById('dataEntryForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const destinationLibrary = formData.get('destinationLibrary');
+        const address = getAddressForLibrary(destinationLibrary);
+        generateAddressLabel(address);
+    });
 });
-
-function getAddressForLibrary(library) {
-    const addresses = {
-        'Library A': '123 Library St, City, Country',
-        'Library B': '456 Book Rd, City, Country',
-        // Add more libraries and their addresses here
-    };
-    return addresses[library] || 'Unknown Address';
-}
-
-function generateAddressLabel(address) {
-    alert(`Address Label:\n${address}`);
-}
