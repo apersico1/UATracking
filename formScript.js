@@ -44,5 +44,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const destinationLibrary = formData.get('destinationLibrary');
         const address = getAddressForLibrary(destinationLibrary);
         generateAddressLabel(address);
+
+        // Prepare data for Google Sheets
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Send data to Google Sheets
+        fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+          .then(data => {
+              console.log('Success:', data);
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+          });
     });
 });
