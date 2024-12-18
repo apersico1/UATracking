@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Automatically set the current date and time
+    // Automatically set the current date and time to EST
     const dateTimeField = document.getElementById('dateTime');
     const now = new Date();
-    dateTimeField.value = now.toISOString().slice(0, 16);
+    const estOffset = -5 * 60; // EST offset in minutes
+    const estTime = new Date(now.getTime() + (now.getTimezoneOffset() + estOffset) * 60000);
+    dateTimeField.value = estTime.toISOString().slice(0, 16);
 
     // Handle number of items input to generate barcode fields
     const numberOfItemsField = document.getElementById('numberOfItems');
