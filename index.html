@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Data Entry Form</title>
+</head>
+<body>
+    <form id="dataEntryForm">
+        <label for="staffName">Staff Name:</label>
+        <input type="text" id="staffName" name="staffName" required><br><br>
+
+        <label for="dateTime">Date/Time:</label>
+        <input type="datetime-local" id="dateTime" name="dateTime" required><br><br>
+
+        <label for="destinationLibrary">Destination Library:</label>
+        <input type="text" id="destinationLibrary" name="destinationLibrary" required><br><br>
+
+        <label for="numberOfItems">Number of Items:</label>
+        <input type="number" id="numberOfItems" name="numberOfItems" required><br><br>
+
+        <label for="barcode1">Barcode 1:</label>
+        <input type="text" id="barcode1" name="barcode1" required><br><br>
+
+        <!-- Additional barcode fields -->
+        <div id="additionalBarcodes"></div>
+
+        <button type="button" onclick="addBarcodeField()">Add Barcode</button><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="formScript.js"></script>
+</body>
+</html>
