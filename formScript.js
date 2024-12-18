@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         // Send data to Google Sheets
-        fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+        fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxydkxhqTtHQ6bL3xLwvuvgtbszzHC6JCnUR5XU_fiCeenq8O8lTNR3jtxFaOmIjKms/exec/exec', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
