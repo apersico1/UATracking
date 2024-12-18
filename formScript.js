@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('dataEntryForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const destinationLibrary = formData.get('destinationLibrary');
+        const destinationLibrary = formData.get('destinationLibrary').toUpperCase(); // Ensure symbol is uppercase
         const address = getAddressForLibrary(destinationLibrary);
         generateAddressLabel(address);
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         // Send data to Google Sheets
-        fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxydkxhqTtHQ6bL3xLwvuvgtbszzHC6JCnUR5XU_fiCeenq8O8lTNR3jtxFaOmIjKms/exec/exec', {
+        fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -65,9 +65,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }).then(response => response.json())
           .then(data => {
               console.log('Success:', data);
+              // Display confirmation message
+              alert('Form submitted successfully!');
           })
           .catch((error) => {
               console.error('Error:', error);
+              alert('There was an error submitting the form. Please try again.');
           });
     });
 });
