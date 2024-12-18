@@ -22,14 +22,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
+    // Load addresses from JSON file
+    let addresses = {};
+    fetch('addresses.json')
+        .then(response => response.json())
+        .then(data => {
+            addresses = data;
+        })
+        .catch(error => console.error('Error loading addresses:', error));
+
     // Function to get the address for the selected library
-    function getAddressForLibrary(library) {
-        const addresses = {
-            'Library A': '123 Library St, City, Country',
-            'Library B': '456 Book Rd, City, Country',
-            // Add more libraries and their addresses here
-        };
-        return addresses[library] || 'Unknown Address';
+    function getAddressForLibrary(symbol) {
+        return addresses[symbol] || 'Unknown Address';
     }
 
     // Function to generate an address label
