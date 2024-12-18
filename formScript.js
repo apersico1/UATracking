@@ -41,8 +41,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Function to generate an address label
     function generateAddressLabel(address) {
         const addressLabelDiv = document.getElementById('addressLabel');
-        addressLabelDiv.textContent = address;
+        addressLabelDiv.innerHTML = address.replace(/\n/g, '<br>');
         addressLabelDiv.style.display = 'block';
+        
+        const printButton = document.getElementById('printButton');
+        printButton.style.display = 'block';
     }
 
     // Handle form submission
@@ -60,7 +63,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         // Send data to Google Sheets
-        fetch('https://script.google.com/macros/s/AKfycbypz2uH1hwMINPWDkdcH3dLGs_w4jCKsVSWNT3SOaCnmnaAs0BbktNl4Y1qSuHN8LRr/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbyEXQ_fmtH0YTXWH80UFaEbVFyQaIeD9EhMOM6-E3QHy9WyZw3LiISHPfddkS9U08MrOw/exec', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
