@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         // Send data to Google Sheets
-        fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxydkxhqTtHQ6bL3xLwvuvgtbszzHC6JCnUR5XU_fiCeenq8O8lTNR3jtxFaOmIjKms/exec/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbypz2uH1hwMINPWDkdcH3dLGs_w4jCKsVSWNT3SOaCnmnaAs0BbktNl4Y1qSuHN8LRr/exec', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -65,8 +65,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }).then(response => response.json())
           .then(data => {
               console.log('Success:', data);
-              // Display confirmation message
-              alert('Form submitted successfully!');
+              if (data.result === 'success') {
+                  alert('Form submitted successfully!');
+              } else {
+                  alert('There was an error submitting the form: ' + data.error);
+              }
           })
           .catch((error) => {
               console.error('Error:', error);
